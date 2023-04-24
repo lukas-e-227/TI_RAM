@@ -22,10 +22,19 @@ else if (starting_config == 'sqrt') {
     start_memory[1] = 4;
     start_memory[4] = 1;
 }
+else if (starting_config == 'div') {
+    let x = 10;
+    let y = 3;
+    start_memory[1] = x;
+    start_memory[2] = y;
+    start_memory[3] = 1;
+}
+
 
 
 let out_memory = run(program, start_memory);
-console.log("R0: " + out_memory[0]);
+let R0 = out_memory[0];
+console.log("R0: " + R0);
 
 function parse(filePath)
 {
@@ -44,6 +53,7 @@ function run(program, start_memory)
     while (pc > -1)
     {
         pc = interpret_line(program[pc], pc, memory);
+        console.log(`Line: ${pc} Registers: `, memory.slice(0, 5))
     }
     return memory;
 }
@@ -51,7 +61,6 @@ function run(program, start_memory)
 function interpret_line(line, pc, memory)
 {
     let tokens = line.split(' ');
-    console.log(tokens);
 
     switch (tokens[0]) {
         case 'STOP':
