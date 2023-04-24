@@ -1,23 +1,27 @@
 const fs = require("fs");
 
-let program = parse("maximum.txt");
-
+let program = parse("floored_sqrt.ram");
+let starting_config = 'sqrt';
 console.log(program);
-
-// starting configuration
 let start_memory =  Array(100).fill(0);
-// input multiply
-//start_memory[0] = 3;
-//start_memory[1] = 5; 
-
-// input maximum
-let n = 5 // list length
-start_memory[1] = n + 9;
-start_memory[10] = 1;
-start_memory[11] = 2;
-start_memory[12] = 6;
-start_memory[13] = 4;
-start_memory[14] = 5;
+// starting configuration
+if (starting_config == 'mult')
+{
+    start_memory[0] = 3;
+    start_memory[1] = 5; 
+}
+else if (starting_config == 'max'){
+    // input maximum
+    start_memory[10] = 1;
+    start_memory[11] = 2;
+    start_memory[12] = 6;
+    start_memory[13] = 4;
+    start_memory[14] = 5;
+}
+else if (starting_config == 'sqrt') {
+    start_memory[1] = 4;
+    start_memory[4] = 1;
+}
 
 
 let out_memory = run(program, start_memory);
