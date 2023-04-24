@@ -1,0 +1,8 @@
+R2 <- R2 + R4
+R3 <- R2 + R2
+R3 <- R3 - R4
+R0 <- R0 + R3
+R5 <- R0 - R1
+IF R5=0 GOTO 0
+R0 <- R2 - R4
+STOP

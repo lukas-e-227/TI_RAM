@@ -1,8 +1,6 @@
 const fs = require("fs");
 
-let program = parse("maximum.txt");
-
-console.log(program);
+let program = parse("div.ram");
 
 // starting configuration
 let start_memory =  Array(100).fill(0);
@@ -11,6 +9,7 @@ let start_memory =  Array(100).fill(0);
 //start_memory[1] = 5; 
 
 // input maximum
+/*
 let n = 5 // list length
 start_memory[1] = n + 9;
 start_memory[10] = 1;
@@ -18,10 +17,33 @@ start_memory[11] = 2;
 start_memory[12] = 6;
 start_memory[13] = 4;
 start_memory[14] = 5;
+*/
 
+// input floored sqrt
+/*
+for (let i = 0; i < 26; ++i)
+{
+    start_memory[1] = i;
+    start_memory[2] = 0;
+    start_memory[4] = 1;
 
+    let out_memory = run(program, start_memory);
+    console.log(`R1: ${i} R0: ` + out_memory[0]);
+
+    start_memory.fill(0);
+}
+*/
+
+// input div
+let x = 10;
+let y = 3;
+start_memory[1] = x;
+start_memory[2] = y;
+start_memory[3] = 1;
 let out_memory = run(program, start_memory);
-console.log("R0: " + out_memory[0]);
+let R0 = out_memory[0];
+let d = Math.floor(x/y);
+console.log(`X: ${x}, Y: ${y}, RO: ${R0}, Solution: ${d}`);
 
 function parse(filePath)
 {
@@ -40,6 +62,7 @@ function run(program, start_memory)
     while (pc > -1)
     {
         pc = interpret_line(program[pc], pc, memory);
+        console.log(`Line: ${pc} Registers: `, memory.slice(0, 5))
     }
     return memory;
 }
@@ -47,7 +70,6 @@ function run(program, start_memory)
 function interpret_line(line, pc, memory)
 {
     let tokens = line.split(' ');
-    console.log(tokens);
 
     switch (tokens[0]) {
         case 'STOP':
