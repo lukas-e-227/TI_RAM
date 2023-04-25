@@ -1,7 +1,7 @@
 const fs = require("fs");
 
-let program = parse("floored_sqrt.ram");
-let starting_config = 'sqrt';
+let program = parse("unknown2.ram");
+let starting_config = '?';
 console.log(program);
 let start_memory =  Array(100).fill(0);
 // starting configuration
@@ -19,7 +19,7 @@ else if (starting_config == 'max'){
     start_memory[14] = 5;
 }
 else if (starting_config == 'sqrt') {
-    start_memory[1] = 4;
+    start_memory[1] = 13;
     start_memory[4] = 1;
 }
 else if (starting_config == 'div') {
@@ -29,12 +29,19 @@ else if (starting_config == 'div') {
     start_memory[2] = y;
     start_memory[3] = 1;
 }
+else if (starting_config == '?') {
+    for (let i = 0; i < 110; ++i) {
+        // ceiled sqrt
+        start_memory[0] = i;
+        let out_memory = run(program, start_memory);
+        let R0 = out_memory[0];
+        console.log("input: " + i + " R0: " + R0 );
+        start_memory.fill(0);
+    }
+}
 
 
 
-let out_memory = run(program, start_memory);
-let R0 = out_memory[0];
-console.log("R0: " + R0);
 
 function parse(filePath)
 {
@@ -53,7 +60,7 @@ function run(program, start_memory)
     while (pc > -1)
     {
         pc = interpret_line(program[pc], pc, memory);
-        console.log(`Line: ${pc} Registers: `, memory.slice(0, 5))
+        //console.log(`Line: ${pc} Registers: `, memory.slice(0, 5))
     }
     return memory;
 }

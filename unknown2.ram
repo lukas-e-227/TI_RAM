@@ -1,0 +1,9 @@
+R1 <- 1
+R2 <- 1
+R3 <- R0 - R1
+IF R3=0 GOTO 7
+R1 <- R1 + R1
+R4 <- R4 + R2 
+GOTO 2
+R0 <- R4
+STOP
