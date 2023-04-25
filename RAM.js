@@ -30,12 +30,12 @@ else if (starting_config == 'div') {
     start_memory[3] = 1;
 }
 else if (starting_config == '?') {
-    for (let i = 0; i < 110; ++i) {
+    for (let i = 0; i < 1000; ++i) {
         // ceiled sqrt
         start_memory[0] = i;
         let out_memory = run(program, start_memory);
         let R0 = out_memory[0];
-        console.log("input: " + i + " R0: " + R0 );
+        console.log("input: " + i + " R0: " + R0 + "log: " + Math.log2(i));
         start_memory.fill(0);
     }
 }
