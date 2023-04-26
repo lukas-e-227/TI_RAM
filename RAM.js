@@ -1,10 +1,11 @@
 const fs = require("fs");
 
-let program = parse("unknown2.ram");
-let starting_config = '?';
+let program = parse("div.ram");
+let starting_config = 'div';
 console.log(program);
 let start_memory =  Array(100).fill(0);
 // starting configuration
+
 if (starting_config == 'mult')
 {
     start_memory[0] = 3;
@@ -28,6 +29,9 @@ else if (starting_config == 'div') {
     start_memory[1] = x;
     start_memory[2] = y;
     start_memory[3] = 1;
+    let out_memory = run(program, start_memory);
+    let R0 = out_memory[0];
+    console.log('R0: ' + R0);
 }
 else if (starting_config == '?') {
     for (let i = 0; i < 1000; ++i) {
@@ -38,6 +42,11 @@ else if (starting_config == '?') {
         console.log("input: " + i + " R0: " + R0 + "log: " + Math.log2(i));
         start_memory.fill(0);
     }
+}
+else if (starting_config == 'bb') {
+    let out_memory = run(program, start_memory);
+    let R0 = out_memory[0];
+    console.log('R0: ' + R0);
 }
 
 
@@ -60,7 +69,7 @@ function run(program, start_memory)
     while (pc > -1)
     {
         pc = interpret_line(program[pc], pc, memory);
-        //console.log(`Line: ${pc} Registers: `, memory.slice(0, 5))
+        console.log(`Line: ${pc} Registers: `, memory.slice(0, 5))
     }
     return memory;
 }
